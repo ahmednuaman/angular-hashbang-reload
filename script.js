@@ -18,6 +18,7 @@
   AppController = (function() {
     function AppController(aService) {
       this.aService = aService;
+      debugger;
       aService.fetch();
     }
 

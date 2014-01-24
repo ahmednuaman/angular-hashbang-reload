@@ -6,6 +6,7 @@ class AService
 
 class AppController
   constructor: (@aService) ->
+    debugger;
     aService.fetch()
 
 routeConfig = ($provide, $routeProvider, $locationProvider) ->
