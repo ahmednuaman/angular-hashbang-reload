@@ -4227,12 +4227,14 @@ function Browser(window, document, $log, $sniffer) {
         }
       } else {
         newLocation = url;
-        debugger;
+
         if (replace) {
           location.replace(url);
         } else {
           location.href = url;
         }
+
+        return;
       }
       return self;
     // getter
@@ -9210,9 +9212,8 @@ function $LocationProvider(){
 
     // rewrite hashbang url <> html5 url
     if ($location.absUrl() != initialUrl) {
-      var fooURL = $location.absUrl();
-      debugger;
       $browser.url($location.absUrl(), true);
+      return;
     }
 
     // update $location when $browser url changes
