@@ -8,7 +8,12 @@ class AppController
   constructor: (@aService) ->
     aService.fetch()
 
-routeConfig = ($routeProvider, $locationProvider) ->
+routeConfig = ($provide, $routeProvider, $locationProvider) ->
+  $provide.decorator '$sniffer', ['$delegate', ($delegate) ->
+    $delegate.history = false
+    $delegate
+  ]
+
   $routeProvider
     .when '/foo',
       template: '<div>woop!</div>'
@@ -22,6 +27,6 @@ routeConfig = ($routeProvider, $locationProvider) ->
 angular.module 'app', ['ngRoute']
 
 app = angular.module 'app'
-app.config ['$routeProvider', '$locationProvider', routeConfig]
+app.config ['$provide', '$routeProvider', '$locationProvider', routeConfig]
 app.service 'aService', ['$http', AService]
 app.controller 'AppController', ['aService', AppController]

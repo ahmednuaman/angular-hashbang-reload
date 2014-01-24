@@ -25,7 +25,13 @@
 
   })();
 
-  routeConfig = function($routeProvider, $locationProvider) {
+  routeConfig = function($provide, $routeProvider, $locationProvider) {
+    $provide.decorator('$sniffer', [
+      '$delegate', function($delegate) {
+        $delegate.history = false;
+        return $delegate;
+      }
+    ]);
     $routeProvider.when('/foo', {
       template: '<div>woop!</div>',
       controller: 'AppController'
@@ -40,7 +46,7 @@
 
   app = angular.module('app');
 
-  app.config(['$routeProvider', '$locationProvider', routeConfig]);
+  app.config(['$provide', '$routeProvider', '$locationProvider', routeConfig]);
 
   app.service('aService', ['$http', AService]);
 
